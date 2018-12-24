@@ -24,13 +24,14 @@ public class Triangle {
 
     // 设置三角形顶点数组
     public static float triangleCoords[] = { // 默认按逆时针方向顺序绘制
-            0.0f, 1f,  // 顶
-            -1f, -1f,  // 左底
-            1f, -1f // 右底
+            0.0f, 0.5f,  // 顶
+            -0.5f, -0.5f,  // 左底
+            0.5f, -0.5f // 右底
     };
     // 设置图形的RGB值和透明度
     public float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
 
+    private GLUtils glUtils;
     /**
      * 初始化
      * 流程：创建一个顶点的缓冲区空间，然后将其作为一个浮点的缓冲区，
@@ -47,10 +48,11 @@ public class Triangle {
         floatBuffer.put(triangleCoords);
         // 设置buffer从第一个坐标开始读
         floatBuffer.position(0);
+        glUtils = new GLUtils();
     }
 
     public void draw(){
-        new GLUtils().draw(COORDS_PER_VERTEX, floatBuffer, color);
+        glUtils.draw(COORDS_PER_VERTEX, floatBuffer, color);
     }
 }
 

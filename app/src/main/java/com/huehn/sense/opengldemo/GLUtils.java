@@ -11,6 +11,7 @@ import java.util.IllegalFormatCodePointException;
 
 public class GLUtils {
 
+    private int program;
     private static final int LENGTH = 4;
 
     private final String vertexShaderCode =
@@ -26,6 +27,11 @@ public class GLUtils {
                     "  gl_FragColor = vColor;" +
                     "}";
 
+
+    public GLUtils() {
+        //获取程式
+        program = getProgram();
+    }
 
     public int loadShader(int type, String shaderCode){
 
@@ -82,8 +88,6 @@ public class GLUtils {
      * @param color 颜色数组，数组的四个数分别为图形的RGB值和透明度
      */
     public void draw(int coords_per_vertex, FloatBuffer vertexBuffer, float color[]) {
-        //获取程式
-        int program = getProgram();
 
         //得到处理到顶点着色器的vPosition成员
         int vPositionHandler = GLES20.glGetAttribLocation(program, "vPosition");
@@ -98,8 +102,8 @@ public class GLUtils {
 
         // 得到处理到片段着色器的vPosition成员
         int mColorHandle = GLES20.glGetUniformLocation(program, "vColor");
-        //清空所有颜色，设置为白色背景，这样子画出来的三角形区域外的就不会是灰色了
-        GLES20.glClearColor(255, 255, 255, 0.0f);
+//        //清空所有颜色，设置为白色背景，这样子画出来的三角形区域外的就不会是灰色了
+//        GLES20.glClearColor(255, 255, 255, 0.0f);
         // 设置颜色
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
         // 绘制三角形比较简单，这里采用glDrawArrays方法(默认是逆时针方向)
@@ -107,10 +111,11 @@ public class GLUtils {
             GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, coords_per_vertex);
         }else if (coords_per_vertex == Rectangle.COORDS_PER_VERTEX){
 //            GLES20.glDrawArrays(GLES20.);
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, coords_per_vertex);
         }
 
-        // 禁用指向图形的顶点数组
-        GLES20.glDisableVertexAttribArray(vPositionHandler);
+//        // 禁用指向图形的顶点数组
+//        GLES20.glDisableVertexAttribArray(vPositionHandler);
     }
 
 }

@@ -28,6 +28,7 @@ public class GL20Renderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        System.out.println("huehn draw");
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 //        triangle.draw();
         rectangle.draw();

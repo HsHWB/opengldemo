@@ -18,11 +18,13 @@ public class Rectangle {
 //        0.5f, -0.5f,
 //        0.5f, 0.5f
     public static float rectangleCoords[] = {
-            -1f, 1f,
-            -1f, -1f,
-            1f, -1f,
-            1f, 1f
+            -0.5f, 0.5f, // x, y, z, r, g, b,每一行存储一个点的信息，位置和颜色
+            -0.5f, -0.5f,
+            0.5f, -0.5f,
+            0.5f, 0.5f
     };
+
+    private GLUtils glUtils;
 
     // 设置图形的RGB值和透明度
     public float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
@@ -34,10 +36,10 @@ public class Rectangle {
         floatBuffer = byteBuffer.asFloatBuffer();
         floatBuffer.put(rectangleCoords);
         floatBuffer.position(0);
-
+        glUtils = new GLUtils();
     }
 
     public void draw(){
-        new GLUtils().draw(COORDS_PER_VERTEX, floatBuffer, color);
+        glUtils.draw(COORDS_PER_VERTEX, floatBuffer, color);
     }
 }
